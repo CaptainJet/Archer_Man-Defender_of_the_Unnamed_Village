@@ -144,6 +144,7 @@ class SceneLevel < Scene
 			next if arrow.disposed?
 			@active_enemies.each {|enemy|
 				next if enemy.disposed?
+				break if arrow.disposed?
 				en_rect = enemy.rect
 				en_rect.x -= 30
 				if arrow.rect.intersects?(en_rect)

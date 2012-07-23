@@ -1,6 +1,5 @@
 require 'bundler/setup'
 require 'gosu'
-require 'json'
 require 'rest_client'
 exit if Object.const_defined?(:Ocra)
 

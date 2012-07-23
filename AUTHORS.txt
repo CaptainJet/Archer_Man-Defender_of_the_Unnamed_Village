@@ -1,0 +1,19 @@
+## Graphics: ##
+All graphics can be found on opengameart.org.
+
+List of art files + license
+
+AUTHOR                             LICENSE                     FILENAME
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Enemy Armor.png
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Enemy Red.png
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Enemy.png
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Player.png
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Player Bow.png
+Johannes Sjölund                   CC BY_SA 3.0, GPLv3         game/media/images/Arrow.png
+Johann Charlot                     CC BY_SA 3.0, GPLv3         game/media/images/Map.png
+Erik Schilling                     CC BY_SA 3.0, GPLv3         game/media/images/Orb.png
+
+## Others: ##
+
+AUTHOR                             LICENSE                     FILENAME
+Ray Larabie                        Typodermicfonts License     Vinque font as used in Intro.png and Title.png
