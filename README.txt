@@ -1,7 +1,7 @@
 This is a Liberated Pixel Cup contest entry, written in Ruby with the 'gosu' gem.
 This game is a SHMUP, where you play as an Archer shooting skeletons.
 
-This game requires the 'gosu' gem, 'rest-client' gem, 'json', and 'bunlder'. You can run "Compile.rb" to automate the process of installing bundler, and th required gems.
+This game requires the 'gosu' gem, 'rest-client' gem, and 'bundler'. You can run "Compile.rb" to automate the process of installing bundler, and th required gems.
 
 Prerequisites:
 
