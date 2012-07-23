@@ -6,12 +6,12 @@ This game requires the 'gosu' gem, 'rest-client' gem, and 'json'. You can run "C
 Prerequisites:
 
 	* Ruby 1.8.7 or higher.
-	* Ability to install ruby gems using 'gem install', usually come with Ruby by default.
+	* Ability to install ruby gems using 'gem install', usually comes with Ruby by default.
 
 
 Controls:
 	
-	* Use UP/W to move upwards, and DOWn/S to move downwards
+	* Use UP/W to move upwards, and DOWN/S to move downwards
 	* Use A to fire an arrow
 	* Use the 1 key to heal 5 health, using 50 souls
 	* Use the 2 key to start automatic arrow shooting, for 20 arrows, which originate at the Player Y, using 20 souls.
