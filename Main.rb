@@ -1,4 +1,4 @@
-#require 'bundler/setup'
+require 'bundler/setup'
 require 'gosu'
 require 'json'
 require 'rest_client'
