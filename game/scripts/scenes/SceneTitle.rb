@@ -1,7 +1,7 @@
 class SceneTitle < Scene
 	
 	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls
-	3:Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls}
+	3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause the game}
 	
 	def initialize
 		super
