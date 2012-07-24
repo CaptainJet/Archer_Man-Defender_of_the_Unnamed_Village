@@ -8,6 +8,7 @@ class SceneTitle < Scene
 		@bg = Sprite.new(bitmap: Bitmap.new("", nil, true))
 		col = Color::WHITE
 		@font = Font.new($main_window, Gosu.default_font_name, 30)
+		@hfont = Font.new($main_window, Gosu.default_font_name, 30)
 		@controls = Image.from_text($main_window, CONTROLS, Gosu.default_font_name, 20, 16, 500, :left)
 		@bg.bitmap.image = $main_window.record($main_window.width, $main_window.height) { $main_window.draw_quad(0, 0, col, 0, $main_window.height, col, $main_window.width, $main_window.height, col, $main_window.width, 0, col) }
 	end
@@ -22,6 +23,9 @@ class SceneTitle < Scene
 		else
 			if Input.trigger?(:Return) || Input.trigger?(:Enter)
 				$scene = SceneLevel.new
+				terminate
+			elsif Input.trigger?(:Space)
+				$scene = SceneHighScoreNoEntry.new
 				terminate
 			end
 		end
@@ -40,6 +44,8 @@ class SceneTitle < Scene
 		return unless @image.opacity == 255
 		width = @font.text_width("Press Enter To Play")
 		@font.draw("Press Enter to Play", $main_window.width / 2 - width / 2, 400, 50)
-		@controls.draw(10, 200, 50, 1, 1, Color::BLACK)
+		width = @font.text_width("Press Space To View High Scores")
+		@font.draw("Press Space To View High Scores", $main_window.width / 2 - width / 2, 440, 50)
+		@controls.draw(10, 210, 50, 1, 1, Color::BLACK)
 	end
 end
