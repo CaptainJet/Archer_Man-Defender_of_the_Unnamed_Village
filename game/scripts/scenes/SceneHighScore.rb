@@ -47,7 +47,7 @@ class SceneHighScore < Scene
 		@title.draw("High Scores:", 25, 125, 50)
 		@fonts.each_with_index {|a, i|
 			args = @high_scores[i]
-			a.draw("#{args[0]}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 150 + i * 16, 50)
+			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 150 + i * 16, 50)
 		}
 		@submit.draw("Enter your name:", 500, 125, 50)
 		text = $main_window.text_input.text.dup
