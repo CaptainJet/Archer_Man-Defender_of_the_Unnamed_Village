@@ -29,18 +29,22 @@ class SceneHighScore < Scene
 	end
 	
 	def get_high_scores
-		highs = (RestClient.get(URL, {:accept => :json}) rescue return false)
-		erks = []
-		highs.gsub(/\[|\]/i, "").split("}").each {|a|
-			name = a.match(/\"name\"\:\"(.+)\",/i)[1]
-			position = a.match(/\"position\"\:(\d+),/i)[1].to_i
-			score = a.match(/\"score\"\:(\d+),/i)[1].to_i
-			text = a.match(/\"text\"\:\"(.+)\"/i)[1]
-			erks.push([position, name, score, text])
-		}
-		erks.sort {|a, b| b[0] <=> a[0] }
+		begin
+			highs = RestClient.get(URL, {:accept => :json})
+			erks = []
+			highs.gsub(/\[|\]/i, "").split("}").each {|a|
+				name = a.match(/\"name\"\:\"(.+)\",/i)[1]
+				position = a.match(/\"position\"\:(\d+),/i)[1].to_i
+				score = a.match(/\"score\"\:(\d+),/i)[1].to_i
+				text = a.match(/\"text\"\:\"(.+)\"/i)[1]
+				erks.push([position, name, score, text])
+			}
+			erks.sort {|a, b| b[2] <=> a[2] }
+		rescue
+			false
+		end
 	end
-	
+
 	def draw
 		super
 		@hud.draw

@@ -1,5 +1,8 @@
 class SceneLevel < Scene
 	
+	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls\n  3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause the game}
+	SKILL_NAMES = ["Heal", "Auto-Arrow", "Arrow Wave", "Slow Time"]
+	
 	PLAYER = CharacterBase.new(:visible => false, :bitmap => Bitmap.new("Player"), :x => $main_window.width - 64, :y => 0, :t_width => 64, :t_height => 64, :z => 1)
 	ATTACK = CharacterBase.new(:visible => false, :bitmap => Bitmap.new("Player Bow"), :x => $main_window.width - 64, :y => 0, :t_width => 64, :t_height => 64, :z => 1)
 	ENEMY = Enemy.new(:bitmap => Bitmap.new("Enemy"), :x => -64, :t_width => 64, :t_height => 64, :z => 1, :row => 3, :animate => true, :hp => 1, :level => 0)
@@ -26,10 +29,12 @@ class SceneLevel < Scene
 		@part_timer = 0
 		@dying_parts = []
 		@hud = LevelHud.new
-		@fonts = Array.new(4) { Font.new($main_window, Gosu.default_font_name, 20) }
+		@fonts = Array.new(1) { Font.new($main_window, Gosu.default_font_name, 20) }
+		4.times { @fonts.push(Font.new($main_window, Gosu.default_font_name, 16)) }
 		@paused = false
 		@slowdown = 0
 		@dying = false
+		@controls = Image.from_text($main_window, CONTROLS, Gosu.default_font_name, 20, 16, 500, :left)
 	end
 	
 	def update
@@ -217,7 +222,7 @@ class SceneLevel < Scene
 	end
 	
 	def enemy_speed(enemy)
-		x = 1 + (@level * 0.25)
+		x = 1 + (@level * 0.15)
 		x = [x, 5].min
 		x = 1 if enemy.level == 2
 		x = [x, 2].min if enemy.level == 1
@@ -228,7 +233,7 @@ class SceneLevel < Scene
 	def next_wave
 		@level += 1
 		@enemies = []
-		@enemies = Array.new(10 + @level * 4) { 
+		@enemies = Array.new(10 + @level * 7) { 
 			a = ENEMY.dup
 			Graphics.add_sprite(a)
 			a.y = rand($main_window.height - 128) 
@@ -273,6 +278,12 @@ class SceneLevel < Scene
 		@hud.draw
 		if @paused
 			@fonts[0].draw("Paused", $main_window.width / 2 - @fonts[0].text_width("Paused") / 2, $main_window.height / 2 - 10, 50)
+			@controls.draw(10, 200, 50, 1, 1, Color::BLACK)
+		else
+			[50, 20, 30, 15].each_with_index {|a, i|
+				col = $data[:souls] >= a ? Color::WHITE : Color::BLACK
+				@fonts[i + 1].draw("#{i + 1}: #{SKILL_NAMES[i]}", 10, 450 + i * 18, 50, 1, 1, col)
+			}
 		end
 		if @dying
 			col = Color.rgba(0, 0, 0, @bg.opacity)

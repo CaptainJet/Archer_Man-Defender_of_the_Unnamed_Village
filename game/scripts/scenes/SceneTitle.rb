@@ -1,11 +1,9 @@
 class SceneTitle < Scene
 	
-	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls
-	3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause the game}
+	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls\n  3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause the game}
 	
 	def initialize
 		super
-		@options = ["Play", "Options", "High Scores"]
 		@image = Sprite.new(bitmap: Bitmap.new("Title"), opacity: 0, z: 1)
 		@bg = Sprite.new(bitmap: Bitmap.new("", nil, true))
 		col = Color::WHITE
@@ -42,6 +40,6 @@ class SceneTitle < Scene
 		return unless @image.opacity == 255
 		width = @font.text_width("Press Enter To Play")
 		@font.draw("Press Enter to Play", $main_window.width / 2 - width / 2, 400, 50)
-		@controls.draw(10, 200, 50, 1, 1, 0xff00ffff)
+		@controls.draw(10, 200, 50, 1, 1, Color::BLACK)
 	end
 end
