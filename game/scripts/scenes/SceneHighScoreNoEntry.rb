@@ -9,12 +9,14 @@ class SceneHighScoreNoEntry < Scene
 		end
 		@title = Font.new($main_window, Gosu.default_font_name, 20)
 		@fonts = Array.new(10) { Font.new($main_window, Gosu.default_font_name, 14) }
+		@bg = Sprite.new(:bitmap => Bitmap.new("Map BW"))
 	end
 	
 	def update
 		super
 		if Input.trigger?(:Return) || Input.trigger?(:Enter)
 			$scene = SceneTitle.new
+			terminate
 		end
 	end
 	
@@ -42,5 +44,10 @@ class SceneHighScoreNoEntry < Scene
 			args = @high_scores[i]
 			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 150 + i * 16, 50)
 		}
+	end
+	
+	def terminate
+		super
+		@bg.dispose
 	end
 end

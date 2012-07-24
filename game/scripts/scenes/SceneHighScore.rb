@@ -13,6 +13,7 @@ class SceneHighScore < Scene
 		@submit = Font.new($main_window, Gosu.default_font_name, 20)
 		@current_input = Font.new($main_window, Gosu.default_font_name, 24)
 		$main_window.text_input = TextInput.new
+		@bg = Sprite.new(:bitmap => Bitmap.new("Map BW"))
 	end
 	
 	def update
@@ -57,5 +58,10 @@ class SceneHighScore < Scene
 		text = $main_window.text_input.text.dup
 		text.concat("|") if text.length < 6
 		@current_input.draw(text, 525, 250, 50)
+	end
+	
+	def terminate
+		super
+		@bg.dispose
 	end
 end

@@ -1,6 +1,6 @@
 class SceneLevel < Scene
 	
-	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls\n  3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause the game}
+	CONTROLS = %Q{Controls:\n  Up/W: Move Up\n  Down/S: Move Down\n  A: Shoot Arrow\n  1: Heal 5 health for 50 souls\n  2: Shoot 20 arrows automatically for 20 souls\n  3: Shoot 25 randomly placed arrows for 30 souls\n  4: Slow down Enemies for 5 second for 15 souls\n  ESC: Pause}
 	SKILL_NAMES = ["Heal", "Auto-Arrow", "Arrow Wave", "Slow Time"]
 	
 	PLAYER = CharacterBase.new(:visible => false, :bitmap => Bitmap.new("Player"), :x => $main_window.width - 64, :y => 0, :t_width => 64, :t_height => 64, :z => 1)
@@ -34,7 +34,7 @@ class SceneLevel < Scene
 		@paused = false
 		@slowdown = 0
 		@dying = false
-		@controls = Image.from_text($main_window, CONTROLS, Gosu.default_font_name, 20, 16, 500, :left)
+		@controls = Image.from_text($main_window, CONTROLS, Gosu.default_font_name, 16, 14, 500, :left)
 	end
 	
 	def update
@@ -278,7 +278,7 @@ class SceneLevel < Scene
 		@hud.draw
 		if @paused
 			@fonts[0].draw("Paused", $main_window.width / 2 - @fonts[0].text_width("Paused") / 2, $main_window.height / 2 - 10, 50)
-			@controls.draw(10, 200, 50, 1, 1, Color::BLACK)
+			@controls.draw(10, 210, 50, 1, 1, Color::BLACK)
 		else
 			[50, 20, 30, 15].each_with_index {|a, i|
 				col = $data[:souls] >= a ? Color::WHITE : Color::BLACK

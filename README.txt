@@ -5,7 +5,7 @@ This game requires the 'gosu' gem, 'rest-client' gem, and 'bundler'. You can run
 
 Prerequisites:
 
-	* Ruby 1.8.7 or higher.
+	* Ruby 1.8.7 or higher, 1.9.3 recommended.
 	* Ability to install ruby gems using 'gem install', usually comes with Ruby by default.
 
 
