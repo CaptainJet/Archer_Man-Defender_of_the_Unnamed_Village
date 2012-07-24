@@ -1,7 +1,6 @@
 require 'bundler/setup'
 require 'gosu'
 require 'rest_client'
-exit if Object.const_defined?(:Ocra)
 
 include Gosu
 
