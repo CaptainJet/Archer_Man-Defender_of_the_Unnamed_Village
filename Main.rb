@@ -8,9 +8,6 @@ Dir.chdir(File.dirname($0))
 
 Dir["core/**/*.rb"].each {|script| require "./#{script}" }
 
-#~ url = "http://chingu:chingu@www.gamercv.com/games/1/high_scores.json"
-#~ RestClient.post(url, {"high_score" => {"name" => "BLUEH", "score" => "10010", "text" => ""}})
-
 class Game < Gosu::Window
 	
 	def initialize(width, height, fullscreen)

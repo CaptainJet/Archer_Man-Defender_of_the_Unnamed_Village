@@ -7,9 +7,8 @@ class SceneLevel < Scene
 	ENEMY_RED = Enemy.new(:bitmap => Bitmap.new("Enemy Red"), :x => -64, :t_width => 64, :t_height => 64, :z => 1, :row => 3, :animate => true, :hp => 3, :level => 2)
 	ARROW = Sprite.new({:bitmap => Bitmap.new("Arrow"), :z => 2, :x => -64})
 	
-	$data = {:slain => 0, :souls => 0, :score => 0, :health => 10}
-	
 	def initialize
+		$data = {:slain => 0, :souls => 0, :score => 0, :health => 10}
 		PLAYER.visible = true
 		@player = PLAYER
 		@map = Sprite.new(:bitmap => Bitmap.new("Map"), :z => 0)
@@ -30,12 +29,13 @@ class SceneLevel < Scene
 		@fonts = Array.new(4) { Font.new($main_window, Gosu.default_font_name, 20) }
 		@paused = false
 		@slowdown = 0
+		@dying = false
 	end
 	
 	def update
 		super
-		update_pause
-		if !@paused
+		update_pause if !@dying
+		if !@paused && !@dying
 			update_player
 			update_specials
 			update_arrows
@@ -44,6 +44,7 @@ class SceneLevel < Scene
 			update_collisions
 			update_particles
 		end
+		update_dying if @dying
 	end
 	
 	def update_pause
@@ -117,6 +118,7 @@ class SceneLevel < Scene
 				@part_timer += 60
 				a.dispose
 				$data[:health] = [$data[:health] - (a.level + 1), 0].max
+				player_die if $data[:health] == 0
 			end
 			@active_enemies[@active_enemies.index(a)] = nil if a.disposed?
 		}
@@ -246,11 +248,52 @@ class SceneLevel < Scene
 		}
 	end
 	
+	def player_die
+		@dying = true
+		col = Color.rgba(0, 0, 0, 255)
+		@bg = Sprite.new(bitmap: Bitmap.draw_text(" "), :opacity => 0, :z => 49)
+		f = ParticleCore.new("Orb", @player.x, @player.y, Color.rgba(159, 0, 0, 255))
+		@player.particle_core = f
+		@player.particle_core.update
+	end
+	
+	def update_dying
+		update_particles
+		@player.update
+		@player.particle_core.update
+		@bg.opacity += 2.125
+		if @bg.opacity >= 255
+			$scene = SceneHighScore.new
+			terminate
+		end
+	end
+	
 	def draw
 		super
 		@hud.draw
 		if @paused
 			@fonts[0].draw("Paused", $main_window.width / 2 - @fonts[0].text_width("Paused") / 2, $main_window.height / 2 - 10, 50)
 		end
+		if @dying
+			col = Color.rgba(0, 0, 0, @bg.opacity)
+			$main_window.draw_quad(0, 0, col, 0, $main_window.height, col, $main_window.width, $main_window.height, col, $main_window.width, 0, col)
+		end
+	end
+	
+	def terminate
+		PLAYER.dispose
+		ATTACK.dispose
+		ENEMY.dispose
+		ENEMY_RED.dispose
+		ENEMY_ARMOR.dispose
+		ARROW.dispose
+		@map.dispose
+		@arrows.each {|a| a.dispose}
+		@enemies.each {|a| a.dispose }
+		@active_enemies.each {|a| a.dispose }
+		@part.each {|a| a.dispose }
+		(@part + @dying_parts).each {|a| 50.times { a.update } }
+		@player.particle_core.dispose
+		@player.particle_core.update while !@player.particle_core.empty?
 	end
 end
