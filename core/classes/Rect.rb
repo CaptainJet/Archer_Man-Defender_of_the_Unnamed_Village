@@ -12,16 +12,20 @@ class Rect
 	def intersects?(rect)
 		return ((((rect.x < (self.x + self.width)) && (self.x < (rect.x + rect.width))) && (rect.y < (self.y + self.height))) && (self.y < (rect.y + rect.height)))
 	end
-
-	def self.intersection(a, b)
-		x = [a.x, b.x].max
-		temp_w = [a.x + a.width, b.x + b.width].min
-		y = [a.y, b.y].max
-		temp_h = [a.y + a.height, b.y + b.height].min
-		if (temp_w >= x) && (temp_h >= y)
-			return Rect.new(x, y, temp_w - x, temp_h - y)
-		else
-			return Rect.new(0, 0, 0, 0)
-		end
-	end
 end
+
+# Archer Man: Defender of the Unnamed Village
+# Copyright (C) 2012 Robert Rowe
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
