@@ -12,14 +12,13 @@ class Game < Gosu::Window
 	
 	def initialize(width, height, fullscreen)
 		super(width, height, fullscreen)
-		self.caption = "Jet's Contest Game"
+		self.caption = "Archer Man: Defender of the Unnamed Village"
 	end
 	
 	def update
 		Input.update
 		Tasks.update
 		$scene.update
-		self.caption = "Jet's Contest Game (#{Gosu.fps} FPS)"
 	end
 	
 	def draw

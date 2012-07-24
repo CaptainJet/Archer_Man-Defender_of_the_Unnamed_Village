@@ -38,7 +38,7 @@ class SceneHighScore < Scene
 			text = a.match(/\"text\"\:\"(.+)\"/i)[1]
 			erks.push([position, name, score, text])
 		}
-		erks.sort {|a, b| a[0] <=> b[0] }
+		erks.sort {|a, b| b[0] <=> a[0] }
 	end
 	
 	def draw
