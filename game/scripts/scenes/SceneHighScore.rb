@@ -33,6 +33,7 @@ class SceneHighScore < Scene
 	end
 	
 	def get_high_scores
+		retried = false
 		begin
 			highs = RestClient.get(URL, {:accept => :json})
 			erks = []
@@ -45,7 +46,8 @@ class SceneHighScore < Scene
 			}
 			erks.sort {|a, b| b[2] <=> a[2] }
 		rescue
-			false
+			(retried = true; retry) if !retried
+			return false
 		end
 	end
 

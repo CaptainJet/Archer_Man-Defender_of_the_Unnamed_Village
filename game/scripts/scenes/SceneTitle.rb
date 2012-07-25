@@ -4,6 +4,10 @@ class SceneTitle < Scene
 	
 	def initialize
 		super
+		if $song.nil?
+			$song = Song.new($main_window, "game/media/audio/BG.ogg")
+			$song.play(true)
+		end
 		@image = Sprite.new(bitmap: Bitmap.new("Title"), opacity: 0, z: 1)
 		@bg = Sprite.new(bitmap: Bitmap.new("", nil, true))
 		col = Color::WHITE
