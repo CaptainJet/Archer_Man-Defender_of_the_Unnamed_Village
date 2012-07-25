@@ -21,13 +21,12 @@ On windows, you can install Ruby and Rubygems simultaneously from:
  
   - http://rubyinstaller.org/downloads/
 
-On Mac with Homebrew installed:
+On Mac, Leopard and up comes with ruby 1.8.6 and rubygems by default.
 
-  $ brew install ruby
 
 Then run the program like:
 
-  $ ruby ./Compile.rb
-  $ ruby ./Main.rb
+  $ ./Compile.rb
+  $ ./Main.rb
 
 You only need to compile one time. Compiling automates the install of bundler, gosu, and rest-client gems.

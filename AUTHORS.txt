@@ -3,6 +3,7 @@ Code authors
 
 This program was written by the following people:
  - Robert Rowe
+ - The authors of 'Gosu' (http://www.libgosu.org/)
 
 
 Asset attribution
