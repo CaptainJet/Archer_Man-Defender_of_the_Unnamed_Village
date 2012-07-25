@@ -39,10 +39,10 @@ class SceneHighScoreNoEntry < Scene
 
 	def draw
 		super
-		@title.draw("High Scores:", 25, 125, 50)
+		@title.draw("High Scores:", 25, 130, 50)
 		@fonts.each_with_index {|a, i|
 			args = @high_scores[i]
-			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 150 + i * 16, 50)
+			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 160 + i * 16, 50)
 		}
 	end
 	

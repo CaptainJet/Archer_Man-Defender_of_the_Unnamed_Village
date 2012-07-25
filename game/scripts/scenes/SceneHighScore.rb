@@ -26,7 +26,10 @@ class SceneHighScore < Scene
 	end
 	
 	def post_high_score
-		RestClient.post(URL, {"high_score" => {"name" => $main_window.text_input.text, "score" => "#{$data[:score]}", "text" => "Killed: #{$data[:slain]}"}})
+		begin
+			RestClient.post(URL, {"high_score" => {"name" => $main_window.text_input.text, "score" => "#{$data[:score]}", "text" => "Killed: #{$data[:slain]}"}})
+		rescue
+		end
 	end
 	
 	def get_high_scores
@@ -49,14 +52,14 @@ class SceneHighScore < Scene
 	def draw
 		super
 		@hud.draw
-		@title.draw("High Scores:", 25, 125, 50)
+		@title.draw("High Scores:", 25, 125, 55)
 		@fonts.each_with_index {|a, i|
 			args = @high_scores[i]
-			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 150 + i * 16, 50)
+			a.draw("#{i + 1}.) #{args[1]} - #{args[2]} (#{args[3]})", 50, 155 + i * 16, 50)
 		}
 		@submit.draw("Enter your name:", 500, 125, 50)
 		text = $main_window.text_input.text.dup
-		text.concat("|") if text.length < 6
+		text.concat("|")
 		@current_input.draw(text, 525, 250, 50)
 	end
 	

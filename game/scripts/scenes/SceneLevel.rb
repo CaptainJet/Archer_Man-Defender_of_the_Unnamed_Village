@@ -67,7 +67,7 @@ class SceneLevel < Scene
 			@player.y = [@player.y - 4, 0].max
 			moved = true
 		end
-		if Input.trigger?(:A) || Input.trigger?(:Left) and @player != ATTACK
+		if Input.press?(:A) || Input.press?(:Left) and @player != ATTACK
 			ATTACK.x = @player.x
 			ATTACK.y = @player.y
 			@player.visible = false
@@ -292,12 +292,8 @@ class SceneLevel < Scene
 	end
 	
 	def terminate
-		PLAYER.dispose
-		ATTACK.dispose
-		ENEMY.dispose
-		ENEMY_RED.dispose
-		ENEMY_ARMOR.dispose
-		ARROW.dispose
+		PLAYER.visible = false
+		ATTACK.visible = false
 		@map.dispose
 		@arrows.each {|a| a.dispose}
 		@enemies.each {|a| a.dispose }
