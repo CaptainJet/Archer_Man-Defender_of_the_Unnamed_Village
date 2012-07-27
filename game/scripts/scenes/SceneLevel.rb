@@ -300,8 +300,8 @@ class SceneLevel < Scene
 		@active_enemies.each {|a| a.dispose }
 		@part.each {|a| a.dispose }
 		(@part + @dying_parts).each {|a| 50.times { a.update } }
-		@player.particle_core.dispose
-		@player.particle_core.update while !@player.particle_core.empty?
+		@player.particle_core.dispose rescue nil
+		(@player.particle_core.update while !@player.particle_core.empty?) rescue nil
 	end
 end
 
