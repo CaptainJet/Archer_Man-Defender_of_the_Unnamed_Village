@@ -5,8 +5,9 @@ require 'rest_client'
 include Gosu
 
 Dir.chdir(File.dirname($0))
-
-Dir["core/**/*.rb"].each {|script| require "./#{script}" }
+Dir["core/**/*.rb"].sort.each {|script| 
+	require "./#{script}"
+}
 
 class Game < Gosu::Window
 	
@@ -40,7 +41,7 @@ class Game < Gosu::Window
 end
 
 $main_window = Game.new(1024, 576, false)
-Dir["game/scripts/**/*.rb"].each {|a| require "./" + a }
+Dir["game/scripts/**/*.rb"].sort.each {|a| require "./" + a }
 $scene = SceneIntro.new
 $main_window.show
 
