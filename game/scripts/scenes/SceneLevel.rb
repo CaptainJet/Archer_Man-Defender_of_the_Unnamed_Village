@@ -265,7 +265,7 @@ class SceneLevel < Scene
 	def update_dying
 		update_particles
 		@player.update
-		@player.particle_core.update
+		@player.particle_core.update rescue nil
 		@bg.opacity += 2.125
 		if @bg.opacity >= 255
 			$scene = SceneHighScore.new
