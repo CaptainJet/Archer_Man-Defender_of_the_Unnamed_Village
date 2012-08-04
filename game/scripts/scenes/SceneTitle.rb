@@ -8,8 +8,8 @@ class SceneTitle < Scene
 			$song = Song.new($main_window, "game/media/audio/BG.ogg")
 			$song.play(true)
 		end
-		@image = Sprite.new(bitmap: Bitmap.new("Title"), opacity: 0, z: 1)
-		@bg = Sprite.new(bitmap: Bitmap.new("", nil, true))
+		@image = Sprite.new(:bitmap => Bitmap.new("Title"), :opaacity => 0, :z => 1)
+		@bg = Sprite.new(:bitmap => Bitmap.new("", nil, true))
 		col = Color::WHITE
 		@font = Font.new($main_window, Gosu.default_font_name, 30)
 		@hfont = Font.new($main_window, Gosu.default_font_name, 30)

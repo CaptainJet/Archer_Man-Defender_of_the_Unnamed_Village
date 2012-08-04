@@ -26,7 +26,7 @@ On Mac, Leopard and up comes with ruby 1.8.6 and rubygems by default.
 
 Then run the program like:
 
-  $ ./Compile.rb
-  $ ./Main.rb
+  $ ruby Compile.rb
+  $ ruby Main.rb
 
 You only need to compile one time. Compiling automates the install of bundler, gosu, and rest-client gems.

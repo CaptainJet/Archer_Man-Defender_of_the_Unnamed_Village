@@ -1,3 +1,8 @@
+begin
+require 'rubygems'
+rescue LoadError
+end
+
 require 'bundler/setup'
 require 'gosu'
 require 'rest_client'

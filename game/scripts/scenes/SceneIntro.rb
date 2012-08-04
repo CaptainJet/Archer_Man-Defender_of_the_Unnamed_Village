@@ -2,7 +2,7 @@ class SceneIntro < Scene
 	
 	def initialize
 		super
-		@image = Sprite.new(bitmap: Bitmap.new("Intro"), y: $main_window.height)
+		@image = Sprite.new(:bitmap => Bitmap.new("Intro"), :y => $main_window.height)
 	end
 	
 	def update

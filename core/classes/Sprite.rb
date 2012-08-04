@@ -3,7 +3,7 @@ class Sprite
 	attr_accessor :x, :y, :z, :bitmap, :opacity, :visible, :mirror
 	
 	def initialize(ops = {})
-		ops = {x: 0, y: 0, z: 0, bitmap: nil, opacity: 255, visible: true, mirror: false}.merge(ops)
+		ops = {:x => 0, :y => 0, :z => 0, :bitmap => nil, :opacity => 255, :visible => true, :mirror => false}.merge(ops)
 		ops.each {|a, b|
 			instance_variable_set(a.to_s.prepend("@").to_sym, b)
 		}
