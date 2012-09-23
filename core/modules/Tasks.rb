@@ -28,11 +28,11 @@ module Tasks
 	module_function
 	
 	def new_task(time, &block)
-		@tasks.push(Task.new(time, block))
+		@tasks.push << Task.new(time, block)
 	end
 	
 	def new_task_loop(time, &block)
-		@loop_tasks.push(Task.new(time, block))
+		@loop_tasks << Task.new(time, block)
 	end
 	
 	def update
@@ -42,15 +42,15 @@ module Tasks
 			@tasks[i] = nil if task.called
 		}
 		@tasks.compact! if @tasks.include?(nil)
-		@loop_tasks.each {|a|
+		@loop_tasks.cycle(1) {|a|
 			a.update
 			a.reset if a.called
 		}
 	end
 	
 	def clear
-		@tasks = []
-		@loop_tasks = []
+		@tasks.clear
+		@loop_tasks.clear
 	end
 	
 	def pause

@@ -5,11 +5,11 @@ module Graphics
 	@@sprites = []
 	
 	def update
-		@@sprites.each {|a| a.draw }
+		@@sprites.cycle(1) {|a| a.draw }
 	end
 	
 	def add_sprite(sprite)
-		@@sprites.push(sprite)
+		@@sprites << sprite
 	end
 	
 	def remove_sprite(sprite)

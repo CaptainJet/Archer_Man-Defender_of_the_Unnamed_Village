@@ -4,7 +4,7 @@ class SceneTitle < Scene
 	
 	def initialize
 		super
-		if $song.nil?
+		if $song == nil
 			$song = Song.new($main_window, "game/media/audio/BG.ogg")
 			$song.play(true)
 		end

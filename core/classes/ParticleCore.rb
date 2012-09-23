@@ -18,9 +18,9 @@ class ParticleCore
 			sprite = Sprite_Particle.new(rand(15..80), rand(-3..3), rand(-3..3), col, :bitmap => @image, :z => 3)
 			sprite.x = @x
 			sprite.y = @y
-			@sprites.push(sprite)
+			@sprites << sprite
 		} unless @disposed
-		@sprites.each {|a| a.update }
+		@sprites.cycle(1) {|a| a.update }
 		@sprites = @sprites.reject {|a| a.disposed? }
 	end
 	
@@ -29,7 +29,7 @@ class ParticleCore
 	end
 	
 	def empty?
-		@sprites.empty?
+		@sprites.size == 0
 	end
 end
 

@@ -6,9 +6,9 @@ class Character < Sprite
 	
 	def initialize(ops = {})
 		super(ops)
-		@t_width ||= 32
-		@t_height ||= 32
-		@animate ||= true
+		@t_width = 32 if @t_width == nil
+		@t_height = 32 if @t_height == nil
+		@animate = true if @animate == nil
 		@bitmaps = Image.load_tiles($main_window, @bitmap.name, @t_width, @t_height, false)
 		@bitmaps = @bitmaps.collect {|a| b = Bitmap.new("", nil, true); b.image = a; b}
 		@bitmap = @bitmaps[0]
@@ -34,7 +34,7 @@ class Character < Sprite
 		if @particle_core
 			@particle_core.x = self.x + @bitmap.width / 2
 			@particle_core.y = self.y + @bitmap.height / 2
-			if @particle_core.empty?
+			if @particle_core.size == 0
 				@particle_core = nil
 			end
 		end

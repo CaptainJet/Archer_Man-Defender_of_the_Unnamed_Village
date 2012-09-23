@@ -4,7 +4,7 @@ class CharacterBase < Character
 	
 	def initialize(ops = {})
 		super(ops)
-		@row ||= 1
+		@row = 1 if @row == nil
 		@rows = []
 		size = @bitmaps.size / 4
 		@rows = [@bitmaps[0...size], @bitmaps[size...(size*2)], @bitmaps[(size*2)...(size*3)], @bitmaps[(size*3)...(size*4)]]

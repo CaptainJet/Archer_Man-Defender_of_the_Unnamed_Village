@@ -26,7 +26,7 @@ module Input
 	end
 	
 	def add_key(key)
-		@gosu_keys.push(key)
+		@gosu_keys << key
 	end
 end
 

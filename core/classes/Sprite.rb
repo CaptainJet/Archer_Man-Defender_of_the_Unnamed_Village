@@ -20,7 +20,7 @@ class Sprite
 	end
 	
 	def opac_color
-		if @color.nil?
+		if @color == nil
 			col = Color.rgba(255, 0, 0, @opacity)
 			col.saturation = 0
 			@color = col

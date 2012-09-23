@@ -88,7 +88,7 @@ class SceneLevel < Scene
 		Graphics.add_sprite(arrow)
 		arrow.x = @player.x + 11
 		arrow.y = @player.y + 30
-		@arrows.push(arrow)
+		@arrows << arrow
 	end
 	
 	def new_arrow_rand
@@ -96,11 +96,11 @@ class SceneLevel < Scene
 		Graphics.add_sprite(arrow)
 		arrow.x = @player.x + 11
 		arrow.y = rand($main_window.height - 128) 
-		@arrows.push(arrow)
+		@arrows << arrow
 	end
 	
 	def update_arrows
-		@arrows.each {|a|
+		@arrows.cycle(1) {|a|
 			a.x -= 6
 			a.dispose if !a.on_screen?
 			@arrows[@arrows.index(a)] = nil if a.disposed?
@@ -111,15 +111,15 @@ class SceneLevel < Scene
 	def update_enemies
 		@timer = [@timer - 1, 0].max
 		if @timer == 0 && !@enemies.empty?
-			@active_enemies.push(@enemies.pop)
+			@active_enemies << @enemies.pop
 			@active_enemies.sort! {|a, b| a.y <=> b.y }
 			@timer = rand(90..level_timer)
 		end
-		@active_enemies.each {|a| 
+		@active_enemies.cycle(1) {|a| 
 			a.update
 			a.x += enemy_speed(a)
 			if a.x >= $main_window.width - 50 && !a.disposed?
-				@part.push(ParticleCore.new("Orb", a.x + 30, a.y + 30, Color.rgba(159, 0, 0, 255)))
+				@part << ParticleCore.new("Orb", a.x + 30, a.y + 30, Color.rgba(159, 0, 0, 255))
 				@part_timer += 60
 				a.dispose
 				$data[:health] = [$data[:health] - (a.level + 1), 0].max
@@ -128,18 +128,18 @@ class SceneLevel < Scene
 			@active_enemies[@active_enemies.index(a)] = nil if a.disposed?
 		}
 		@active_enemies.compact!
-		next_wave if @active_enemies.empty? && @enemies.empty?
+		next_wave if @active_enemies.size == 0 && @enemies.size == 0
 	end
 	
 	def update_particles
-		@part.each {|a| a.update }
+		@part.cycle(1) {|a| a.update }
 		@part_timer = [@part_timer - 1, 0].max
-		if @part_timer % 60 == 0 && !@part.empty?
+		if @part_timer % 60 == 0 && @part.size != 0
 			f = @part.shift
-			@dying_parts.push(f)
+			@dying_parts << f
 			f.dispose
 		end
-		@dying_parts.each {|a|
+		@dying_parts.cycle(1) {|a|
 			a.update
 			@dying_parts[@dying_parts.index(a)] = nil if a.empty?
 		}
@@ -147,9 +147,9 @@ class SceneLevel < Scene
 	end
 	
 	def update_collisions
-		@arrows.each {|arrow|
+		@arrows.cycle(1) {|arrow|
 			next if arrow.disposed?
-			@active_enemies.each {|enemy|
+			@active_enemies.cycle(1) {|enemy|
 				next if enemy.disposed?
 				break if arrow.disposed?
 				en_rect = enemy.rect
@@ -157,7 +157,7 @@ class SceneLevel < Scene
 				if arrow.rect.intersects?(en_rect)
 					arrow.dispose
 					enemy.hp -= 1
-					@part.push(ParticleCore.new("Orb", enemy.x + 30, enemy.y + 30, Color.rgba(0, 0, 129, 255)))
+					@part << ParticleCore.new("Orb", enemy.x + 30, enemy.y + 30, Color.rgba(0, 0, 129, 255))
 					@part_timer += enemy.hp <= 0 ? 60 : 10
 				end
 			}
@@ -171,7 +171,7 @@ class SceneLevel < Scene
 			$data[:health] = [$data[:health] + 5, 10].min
 			f = ParticleCore.new("Orb", 0, 0, Color.rgba(255, 190, 0, 255))
 			@player.particle_core = f
-			@part.push(f)
+			@part << f
 			@part_timer += 60
 		elsif Input.trigger?("2") and @player != ATTACK
 			return unless $data[:souls] >= 20
@@ -206,7 +206,7 @@ class SceneLevel < Scene
 			Tasks.new_task(300) { @slowdown = 0 }
 			f = ParticleCore.new("Orb", 0, 0, Color.rgba(255, 190, 0, 255))
 			@player.particle_core = f
-			@part.push(f)
+			@part << f
 			@part_timer += 60
 		end
 	end
@@ -256,7 +256,7 @@ class SceneLevel < Scene
 	def player_die
 		@dying = true
 		col = Color.rgba(0, 0, 0, 255)
-		@bg = Sprite.new(bitmap: Bitmap.draw_text(" "), :opacity => 0, :z => 49)
+		@bg = Sprite.new(:bitmap => Bitmap.draw_text(" "), :opacity => 0, :z => 49)
 		f = ParticleCore.new("Orb", @player.x, @player.y, Color.rgba(159, 0, 0, 255))
 		@player.particle_core = f
 		@player.particle_core.update
@@ -295,11 +295,11 @@ class SceneLevel < Scene
 		PLAYER.visible = false
 		ATTACK.visible = false
 		@map.dispose
-		@arrows.each {|a| a.dispose}
-		@enemies.each {|a| a.dispose }
-		@active_enemies.each {|a| a.dispose }
-		@part.each {|a| a.dispose }
-		(@part + @dying_parts).each {|a| 50.times { a.update } }
+		@arrows.cycle(1) {|a| a.dispose}
+		@enemies.cycle(1) {|a| a.dispose }
+		@active_enemies.cycle(1) {|a| a.dispose }
+		@part.cycle(1) {|a| a.dispose }
+		(@part + @dying_parts).cycle(1) {|a| 50.times { a.update } }
 		@player.particle_core.dispose rescue nil
 		(@player.particle_core.update while !@player.particle_core.empty?) rescue nil
 	end

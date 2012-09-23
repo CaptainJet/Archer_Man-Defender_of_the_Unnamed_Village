@@ -61,7 +61,7 @@ class SceneHighScore < Scene
 		}
 		@submit.draw("Enter your name:", 500, 125, 50)
 		text = $main_window.text_input.text.dup
-		text.concat("|")
+		text << "|"
 		@current_input.draw(text, 525, 250, 50)
 	end
 	

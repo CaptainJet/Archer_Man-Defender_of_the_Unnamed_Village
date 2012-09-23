@@ -4,7 +4,7 @@ class Bitmap
 	
 	def initialize(name, rect = nil, text = false)
 		if !text
-			if rect.nil?
+			if rect == nil
 				@image = Image.new($main_window, "./game/media/images/#{name}.png", false)
 			else
 				@image = Image.new($main_window, "./game/media/images/#{name}.png", false, rect.x, rect.y, rect.width, rect.height)
@@ -14,7 +14,7 @@ class Bitmap
 	end
 	
 	def draw(*args)
-		@image.draw(*args) unless @image.nil?
+		@image.draw(*args) unless @image == nil
 	end
 	
 	def self.draw_text(text, font = default_font_name, height = 20, line_height = 4, width = $main_window.width, align = :left)
